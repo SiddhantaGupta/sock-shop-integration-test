@@ -173,3 +173,38 @@ services:
     read_only: true
     hostname: user-simulator
     command: "-d 60 -r 200 -c 2 -h edge-router"
+  integration-tests:
+    build: ../../integration-test
+    cap_drop:
+      - all
+    read_only: true
+    hostname: integration-test
+    depends_on:
+      front-end:
+        condition: service_started
+      edge-router:
+        condition: service_started
+      catalogue:
+        condition: service_started
+      catalogue-db:
+        condition: service_started
+      carts:
+        condition: service_started
+      carts-db:
+        condition: service_started
+      orders:
+        condition: service_started
+      orders-db:
+        condition: service_started
+      shipping:
+        condition: service_started
+      queue-master:
+        condition: service_started
+      rabbitmq:
+        condition: service_started
+      payment:
+        condition: service_started
+      user:
+        condition: service_started
+      user-db:
+        condition: service_started
